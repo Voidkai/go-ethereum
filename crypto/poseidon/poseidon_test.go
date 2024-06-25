@@ -170,7 +170,7 @@ func BenchmarkPoseidonHash(b *testing.B) {
 	b1 := utils.NewIntFromString("12242166908188651009877250812424843524687801523336557272219921456462821518061") //nolint:lll
 	b2 := utils.NewIntFromString("12242166908188651009877250812424843524687801523336557272219921456462821518061") //nolint:lll
 
-	bigArray4 := []*big.Int{b1, b2, b0, b0, b0, b0}
+	bigArray4 := []*big.Int{b1, b2, b0}
 
 	for i := 0; i < b.N; i++ {
 		HashFixedWithDomain(bigArray4, b0) //nolint:errcheck,gosec
