@@ -15,9 +15,7 @@ func TestPoseidonHashFixed(t *testing.T) {
 	b[1] = from_hex("0x01")
 	b[2] = from_hex("0x02")
 
-	param, _ := NewPoseidon2Params(3, 5, 8, 56, MatDiagM1, MatInternal3, RoundConstants)
-
-	poseidon2 := NewPoseidon2(param)
+	poseidon2 := NewPoseidon2(RoundConstants)
 
 	assert.Equal(t, from_hex("0x00"), b[0])
 	assert.Equal(t, from_hex("0x01"), b[1])
@@ -35,14 +33,24 @@ func TestPoseidonHashFixed(t *testing.T) {
 		h[2])
 }
 
+func TestSbox(t *testing.T) {
+	poseidon2 := NewPoseidon2(RoundConstants)
+	b := ff.NewElement().SetBigInt(big.NewInt(2))
+	assert.Equal(t,
+		"2",
+		b.String())
+	b = poseidon2.SboxP(b)
+	assert.Equal(t,
+		"32",
+		b.String())
+}
+
 func BenchmarkPoseidon2Hash(b *testing.B) {
 	b0 := ff.NewElement().SetBigInt(big.NewInt(0))
 	b1 := ff.NewElement().SetBigInt(utils.NewIntFromString("12242166908188651009877250812424843524687801523336557272219921456462821518061")) //nolint:lll
 	b2 := ff.NewElement().SetBigInt(utils.NewIntFromString("12242166908188651009877250812424843524687801523336557272219921456462821518061")) //nolint:lll
 
-	param, _ := NewPoseidon2Params(3, 5, 8, 56, MatDiagM1, MatInternal3, RoundConstants)
-
-	poseidon2 := NewPoseidon2(param)
+	poseidon2 := NewPoseidon2(RoundConstants)
 
 	bigArray4 := []*ff.Element{b1, b2, b0}
 
