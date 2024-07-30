@@ -24,7 +24,7 @@ import (
 
 	"github.com/scroll-tech/go-ethereum/common"
 	"github.com/scroll-tech/go-ethereum/core/types"
-	"github.com/scroll-tech/go-ethereum/crypto/poseidon"
+	"github.com/scroll-tech/go-ethereum/crypto/poseidon2"
 	"github.com/scroll-tech/go-ethereum/ethdb"
 	"github.com/scroll-tech/go-ethereum/log"
 )
@@ -38,7 +38,7 @@ type ZkTrie struct {
 }
 
 func init() {
-	zkt.InitHashScheme(poseidon.HashFixedWithDomain)
+	zkt.InitHashScheme(poseidon2.HashFixedWithDomain)
 }
 
 func sanityCheckByte32Key(b []byte) {
